@@ -5,40 +5,46 @@ using UnityEngine.UI;
 
 public class OxygenBar : MonoBehaviour
 {
-    public float maxOxygen = 100f;   // Max oxygen of the player
-    public float currentOxygen;      // Current oxygen level of the player
-    public Slider oxygenSlider;      // Reference to the oxygen UI slider
-    public float oxygenDepletionRate = 1f; // Rate at which oxygen decreases
+    public Slider oxygenSlider;   // Reference to the oxygen slider UI
+    public float maxOxygen = 100f; // Maximum oxygen level
+    private float currentOxygen;  // Current oxygen level
 
     void Start()
     {
-        currentOxygen = maxOxygen;    // Set initial oxygen to max
-        UpdateOxygenBar();            // Update the oxygen bar at the start
+        currentOxygen = maxOxygen; // Set the current oxygen to max at the start
+        UpdateOxygenSlider();      // Update the oxygen slider at the start
     }
 
-    // Depletes oxygen over time
+    // Method to update the oxygen slider
+    public void UpdateOxygenSlider()
+    {
+        if (oxygenSlider != null)
+        {
+            oxygenSlider.value = currentOxygen / maxOxygen;  // Set slider value based on current oxygen
+        }
+        else
+        {
+            Debug.LogWarning("Oxygen Slider is not assigned in the Inspector!");
+        }
+    }
+
+    // Method to deplete oxygen (e.g., over time or in response to player actions)
     public void DepleteOxygen(float amount)
     {
-        currentOxygen -= amount * oxygenDepletionRate;
-        currentOxygen = Mathf.Clamp(currentOxygen, 0, maxOxygen);  // Ensure oxygen doesn't go below 0
-        UpdateOxygenBar();  // Update the oxygen UI bar
+        currentOxygen -= amount;
+        currentOxygen = Mathf.Clamp(currentOxygen, 0, maxOxygen); // Ensure oxygen doesn't go below 0
+        UpdateOxygenSlider(); // Update the oxygen slider
     }
 
-    // Method to refill oxygen when the player surfaces
+    // Method to refill oxygen
     public void RefillOxygen(float amount)
     {
         currentOxygen += amount;
-        currentOxygen = Mathf.Clamp(currentOxygen, 0, maxOxygen);  // Ensure oxygen doesn't exceed max
-        UpdateOxygenBar();  // Update the oxygen UI bar
+        currentOxygen = Mathf.Clamp(currentOxygen, 0, maxOxygen); // Ensure oxygen doesn't exceed max
+        UpdateOxygenSlider(); // Update the oxygen slider
     }
 
-    // Update the oxygen bar UI
-    private void UpdateOxygenBar()
-    {
-        oxygenSlider.value = currentOxygen / maxOxygen;  // Set slider value based on current oxygen
-    }
-
-    // Get current oxygen level (for other scripts to check)
+    // Method to get the current oxygen level
     public float GetCurrentOxygen()
     {
         return currentOxygen;

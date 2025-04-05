@@ -1,38 +1,54 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class HealthBar : MonoBehaviour
 {
-    public float maxHealth = 100f;    // Max health of the player
-    public float currentHealth;       // Current health of the player
-    public Slider healthSlider;       // Reference to the health UI slider
+
+    public Slider healthSlider;   // Reference to the health slider UI
+    public float maxHealth = 100f; // Maximum health of the player
+    private float currentHealth;  // Current health of the player
 
     void Start()
     {
-        currentHealth = maxHealth;    // Set initial health to max
-        UpdateHealthBar();            // Update the health bar at the start
+        currentHealth = maxHealth; // Set the current health to max at the start
+        UpdateHealthSlider();      // Update the health slider at the start
     }
 
-    void UpdateHealthBar()
+    // Method to update the health slider
+    public void UpdateHealthSlider()
     {
-        healthSlider.value = currentHealth / maxHealth;  // Set slider value based on current health
+        if (healthSlider != null)
+        {
+            healthSlider.value = currentHealth / maxHealth;  // Set slider value based on current health
+        }
+        else
+        {
+            Debug.LogWarning("Health Slider is not assigned in the Inspector!");
+        }
     }
 
-    // Method to deplete health over time (e.g., if oxygen is depleted)
+    // Method to decrease health
     public void DepleteHealth(float amount)
     {
         currentHealth -= amount;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);  // Ensure health doesn't go below 0
-        UpdateHealthBar();  // Update the health UI bar
+        UpdateHealthSlider(); // Update the health slider
+
+        if (currentHealth <= 0)
+        {
+            // Handle player death (e.g., trigger game over)
+            Debug.Log("Player has died.");
+        }
     }
 
     // Method to heal the player
-    public void HealPlayer(float amount)
-    {
-        currentHealth += amount;
-        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);  // Ensure health doesn't exceed max
-        UpdateHealthBar();  // Update the health UI bar
-    }
+    //public void HealPlayer(float amount)
+    //{
+    //    currentHealth += amount;
+    //    currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);  // Ensure health doesn't exceed max health
+    //    UpdateHealthSlider(); // Update the health slider
+    //}
 }
