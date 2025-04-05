@@ -30,55 +30,36 @@ public class PlayerController : MonoBehaviour
 
     private void HandleMovementInput()
     {
-        // Getting input for left-right movement (A/D for movement)
         float moveHorizontal = 0f;
-        if (Input.GetKey(KeyCode.A)) // Press A to move left
-        {
-            moveHorizontal = -1f;
-        }
-        else if (Input.GetKey(KeyCode.D)) // Press D to move right
-        {
-            moveHorizontal = 1f;
-        }
+        if (Input.GetKey(KeyCode.A)) moveHorizontal = -1f;
+        if (Input.GetKey(KeyCode.D)) moveHorizontal = 1f;
 
-        // Getting input for up (W key) or down (S key)
         float moveVertical = 0f;
-        if (Input.GetKey(KeyCode.W))  // Press W to swim up
-        {
-            moveVertical = swimUpSpeed;
-        }
-        else if (Input.GetKey(KeyCode.S)) // Press S to swim down
-        {
-            moveVertical = -swimDownSpeed;
-        }
+        if (Input.GetKey(KeyCode.W)) moveVertical = swimUpSpeed;
+        if (Input.GetKey(KeyCode.S)) moveVertical = -swimDownSpeed;
 
-        // Combine movement input into a vector
         moveInput = new Vector2(moveHorizontal, moveVertical);
     }
 
     void FixedUpdate()
     {
-        // Apply gravity manually if the player is not swimming up/down
-        if (moveInput.y == 0f)  // Only apply gravity if not swimming up/down
+        if (moveInput.y == 0f)
         {
             rb.velocity = new Vector2(moveInput.x * moveSpeed, rb.velocity.y - gravity);  // Apply gravity to Y-axis
         }
         else
         {
-            // Apply swimming up/down speed
             rb.velocity = new Vector2(moveInput.x * moveSpeed, moveInput.y);
         }
     }
 
     private void HandleOxygenDepletion()
     {
-        // Only deplete oxygen if the player is underwater
         if (oxygenBar != null && !IsPlayerOnSurface())
         {
             oxygenBar.DepleteOxygen(Time.deltaTime);  // Deplete oxygen each frame
         }
 
-        // If oxygen runs out, start losing health
         if (oxygenBar != null && oxygenBar.GetCurrentOxygen() <= 0)
         {
             healthBar.DepleteHealth(Time.deltaTime * 5f); // Slowly lose health if out of oxygen
@@ -87,7 +68,6 @@ public class PlayerController : MonoBehaviour
 
     private bool IsPlayerOnSurface()
     {
-        float surfaceLevel = 0f;  // Surface level assumed to be y = 0
-        return transform.position.y >= surfaceLevel;
+        return transform.position.y >= 0;  // Surface assumed to be y = 0
     }
 }

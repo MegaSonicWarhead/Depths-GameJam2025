@@ -10,6 +10,7 @@ public class HealthBar : MonoBehaviour
     public Slider healthSlider;   // Reference to the health slider UI
     public float maxHealth = 100f; // Maximum health of the player
     private float currentHealth;  // Current health of the player
+    public bool isDead = false;  // Flag to check if the player is dead
 
     void Start()
     {
@@ -22,7 +23,8 @@ public class HealthBar : MonoBehaviour
     {
         if (healthSlider != null)
         {
-            healthSlider.value = currentHealth / maxHealth;  // Set slider value based on current health
+            float normalizedHealth = Mathf.Clamp(currentHealth / maxHealth, 0f, 1f);
+            healthSlider.value = normalizedHealth;
         }
         else
         {
@@ -33,22 +35,23 @@ public class HealthBar : MonoBehaviour
     // Method to decrease health
     public void DepleteHealth(float amount)
     {
-        currentHealth -= amount;
-        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);  // Ensure health doesn't go below 0
-        UpdateHealthSlider(); // Update the health slider
-
-        if (currentHealth <= 0)
+        if (isDead) // Stop any health updates if the player is dead
         {
-            // Handle player death (e.g., trigger game over)
-            Debug.Log("Player has died.");
+            Debug.Log("Player is already dead. No further health updates.");
+            return;
+        }
+
+        if (currentHealth > 0)
+        {
+            currentHealth -= amount;
+            currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+            UpdateHealthSlider(); // Update the health slider immediately after health is updated
+
+            if (currentHealth <= 0)
+            {
+                isDead = true;
+                Debug.Log("Player has died.");
+            }
         }
     }
-
-    // Method to heal the player
-    //public void HealPlayer(float amount)
-    //{
-    //    currentHealth += amount;
-    //    currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);  // Ensure health doesn't exceed max health
-    //    UpdateHealthSlider(); // Update the health slider
-    //}
 }
