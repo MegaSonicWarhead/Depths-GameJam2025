@@ -62,7 +62,7 @@ public class Enemy : MonoBehaviour
             }
             else
             {
-                PatrolMovement();
+                PatrolMovement(); // Continue patrolling even if the player isn't detected
             }
 
             Debug.DrawLine(transform.position, player.position, Color.green);
@@ -82,15 +82,19 @@ public class Enemy : MonoBehaviour
             return;
         }
 
+        // Determine the target patrol point based on the direction (moving to B or moving to A)
         Transform targetPatrolPoint = movingToB ? patrolPointB : patrolPointA;
 
+        // Move the enemy towards the target patrol point
         transform.position = Vector2.MoveTowards(transform.position, targetPatrolPoint.position, patrolSpeed * Time.deltaTime);
 
-        if (transform.position == targetPatrolPoint.position)
+        // If the enemy has reached the patrol point, toggle the direction
+        if (Vector2.Distance(transform.position, targetPatrolPoint.position) < 0.1f)
         {
             movingToB = !movingToB;  // Toggle the direction for the next patrol
         }
 
+        // Debug lines for patrol points
         Debug.DrawLine(transform.position, targetPatrolPoint.position, Color.red);
     }
 
@@ -98,6 +102,7 @@ public class Enemy : MonoBehaviour
     {
         if (player != null)
         {
+            // Move towards the player at patrol speed
             float step = patrolSpeed * Time.deltaTime;
             transform.position = Vector2.MoveTowards(transform.position, player.position, step);
             Debug.DrawLine(transform.position, player.position, Color.blue);
