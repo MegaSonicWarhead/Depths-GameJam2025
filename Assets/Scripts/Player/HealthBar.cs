@@ -8,44 +8,29 @@ using TMPro;
 public class HealthBar : MonoBehaviour
 {
 
-    public Slider healthSlider;      // Reference to the health slider UI
-    public GameObject gameOverPanel; // Reference to the Game Over panel UI
-    public TextMeshProUGUI gameOverText; // Reference to the Game Over text
-    public Button retryButton;       // Reference to the retry button
-    public Button exitButton;        // Reference to the exit button
+    public Slider healthSlider;        // Reference to the health slider UI
+    public GameObject gameOverPanel;   // Game Over panel UI reference
+    public TextMeshProUGUI gameOverText; // Game Over text reference
+    public Button retryButton;         // Retry button reference
+    public Button exitButton;          // Exit button reference
 
-    public float maxHealth = 100f;   // Maximum health of the player
-    private float currentHealth;     // Current health of the player
-    public bool isDead = false;      // Flag to check if the player is dead
+    public float maxHealth = 100f;     // Maximum health of the player
+    private float currentHealth;       // Current health of the player
+    public bool isDead = false;        // Flag to check if the player is dead
 
     void Start()
     {
         currentHealth = maxHealth; // Set the current health to max at the start
-        UpdateHealthSlider();       // Update the health slider at the start
+        UpdateHealthSlider();       // Update health slider UI at the start
 
-        // Make sure the Game Over panel is hidden initially
         if (gameOverPanel != null)
         {
-            gameOverPanel.SetActive(false);
+            gameOverPanel.SetActive(false); // Hide Game Over panel initially
         }
 
-        // Attach listeners to the buttons
         if (retryButton != null) retryButton.onClick.AddListener(Retry);
         if (exitButton != null) exitButton.onClick.AddListener(Exit);
     }
-
-    //void Update()
-    //{
-    //    if (Input.GetKeyDown(KeyCode.T))  // Press T to toggle panel visibility
-    //    {
-    //        if (gameOverPanel != null)
-    //        {
-    //            bool isActive = gameOverPanel.activeSelf;
-    //            gameOverPanel.SetActive(!isActive);  // Toggle visibility
-    //            Debug.Log("Toggling Game Over Panel visibility: " + !isActive);
-    //        }
-    //    }
-    //}
 
     // Method to update the health slider
     public void UpdateHealthSlider()
@@ -64,17 +49,13 @@ public class HealthBar : MonoBehaviour
     // Method to decrease health
     public void DepleteHealth(float amount)
     {
-        if (isDead) // Stop any health updates if the player is dead
-        {
-            Debug.Log("Player is already dead. No further health updates.");
-            return;
-        }
+        if (isDead) return;
 
         if (currentHealth > 0)
         {
             currentHealth -= amount;
             currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
-            UpdateHealthSlider(); // Update the health slider immediately after health is updated
+            UpdateHealthSlider(); // Update slider after health changes
 
             if (currentHealth <= 0)
             {
@@ -84,22 +65,14 @@ public class HealthBar : MonoBehaviour
         }
     }
 
-    // Trigger Game Over UI
+    // Trigger the Game Over UI
     private void TriggerGameOver()
     {
         if (gameOverPanel != null)
         {
-            
-          gameOverPanel.SetActive(true);  // Show the Game Over panel
+            gameOverPanel.SetActive(true);  // Show the Game Over panel
             Debug.Log("Game Over Panel activated!");
         }
-        else
-        {
-            Debug.LogWarning("Game Over Panel is not assigned in the Inspector!");
-        }
-
-        // Temporarily remove time scale for testing
-        // Time.timeScale = 0f;
 
         if (gameOverText != null)
         {
@@ -107,7 +80,7 @@ public class HealthBar : MonoBehaviour
         }
     }
 
-    // Retry the game (reset health and resume)
+    // Retry button callback
     public void Retry()
     {
         isDead = false;
@@ -121,6 +94,6 @@ public class HealthBar : MonoBehaviour
     public void Exit()
     {
         Debug.Log("Exiting Game...");
-        Application.Quit(); // Exit the game (works in a build)
+        Application.Quit(); // Quit the game (only works in builds)
     }
 }

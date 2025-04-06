@@ -6,8 +6,8 @@ public class PlayerController : MonoBehaviour
 {
     public float moveSpeed = 70f;            // Speed of the player movement (left/right)
     public float swimUpSpeed = 70f;         // Speed at which the player swims upward
-    public float gravity = 0.1f;            // Custom gravity to pull the player down
     public float swimDownSpeed = 70f;       // Speed at which the player swims downward
+    public float gravity = 0.1f;            // Custom gravity to pull the player down
 
     private Rigidbody2D rb;
     private Vector2 moveInput;
@@ -18,14 +18,14 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();  // Get the Rigidbody2D component
+        rb = GetComponent<Rigidbody2D>();
         rb.gravityScale = 0;  // Disable default gravity to apply custom gravity
     }
 
     void Update()
     {
-        HandleMovementInput();  // Handles user input for movement
-        HandleOxygenDepletion(); // Depletes oxygen and health if necessary
+        HandleMovementInput();
+        HandleOxygenDepletion();
     }
 
     private void HandleMovementInput()
@@ -43,14 +43,7 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (moveInput.y == 0f)
-        {
-            rb.velocity = new Vector2(moveInput.x * moveSpeed, rb.velocity.y - gravity);  // Apply gravity to Y-axis
-        }
-        else
-        {
-            rb.velocity = new Vector2(moveInput.x * moveSpeed, moveInput.y);
-        }
+        rb.velocity = new Vector2(moveInput.x * moveSpeed, rb.velocity.y - gravity);
     }
 
     private void HandleOxygenDepletion()
@@ -68,6 +61,6 @@ public class PlayerController : MonoBehaviour
 
     private bool IsPlayerOnSurface()
     {
-        return transform.position.y >= 0;  // Surface assumed to be y = 0
+        return transform.position.y >= 0;  // Surface is at y = 0
     }
 }

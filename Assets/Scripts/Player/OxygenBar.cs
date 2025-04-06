@@ -9,9 +9,11 @@ public class OxygenBar : MonoBehaviour
     public float maxOxygen = 100f; // Maximum oxygen level
     private float currentOxygen;  // Current oxygen level
 
+    public float oxygenDepletionRate = 5f; // Rate of oxygen depletion per second when underwater
+
     void Start()
     {
-        currentOxygen = maxOxygen; // Set the current oxygen to max at the start
+        currentOxygen = maxOxygen; // Set initial oxygen to max
         UpdateOxygenSlider();      // Update the oxygen slider at the start
     }
 
@@ -20,7 +22,7 @@ public class OxygenBar : MonoBehaviour
     {
         if (oxygenSlider != null)
         {
-            oxygenSlider.value = currentOxygen / maxOxygen;  // Set slider value based on current oxygen
+            oxygenSlider.value = currentOxygen / maxOxygen;  // Normalize oxygen value
         }
         else
         {
@@ -28,12 +30,12 @@ public class OxygenBar : MonoBehaviour
         }
     }
 
-    // Method to deplete oxygen (e.g., over time or in response to player actions)
+    // Method to deplete oxygen
     public void DepleteOxygen(float amount)
     {
         currentOxygen -= amount;
         currentOxygen = Mathf.Clamp(currentOxygen, 0, maxOxygen); // Ensure oxygen doesn't go below 0
-        UpdateOxygenSlider(); // Update the oxygen slider
+        UpdateOxygenSlider(); // Update the slider UI
     }
 
     // Method to refill oxygen
@@ -41,10 +43,10 @@ public class OxygenBar : MonoBehaviour
     {
         currentOxygen += amount;
         currentOxygen = Mathf.Clamp(currentOxygen, 0, maxOxygen); // Ensure oxygen doesn't exceed max
-        UpdateOxygenSlider(); // Update the oxygen slider
+        UpdateOxygenSlider(); // Update the slider UI
     }
 
-    // Method to get the current oxygen level
+    // Get the current oxygen level
     public float GetCurrentOxygen()
     {
         return currentOxygen;
