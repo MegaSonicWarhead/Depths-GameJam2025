@@ -14,13 +14,13 @@ public class WinDialogueManager : MonoBehaviour
     public GameObject nextButton;
     public GameObject returnButton;
 
-
     private int currentLine = 0;
 
     void Start()
     {
         dialoguePanel.SetActive(true);
-        returnButton.SetActive(false);
+        nextButton.SetActive(true);  // Show the Next button
+        returnButton.SetActive(false); // Hide the Return button initially
         ShowLine();
     }
 
@@ -35,8 +35,8 @@ public class WinDialogueManager : MonoBehaviour
         }
         else
         {
-            dialoguePanel.SetActive(false);
-            returnButton.SetActive(true);
+            nextButton.SetActive(false);  // Hide the Next button
+            returnButton.SetActive(true); // Show the Return button when dialogue ends
         }
     }
 
