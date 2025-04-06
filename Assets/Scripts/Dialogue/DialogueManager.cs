@@ -35,7 +35,7 @@ public class DialogueManager : MonoBehaviour
         }
         else
         {
-            dialoguePanel.SetActive(false);
+            //dialoguePanel.SetActive(false);
             startGameButton.gameObject.SetActive(true);
         }
     }

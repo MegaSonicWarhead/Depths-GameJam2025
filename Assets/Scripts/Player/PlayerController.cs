@@ -43,7 +43,14 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        rb.velocity = new Vector2(moveInput.x * moveSpeed, rb.velocity.y - gravity);
+        // Apply horizontal movement as before
+        float moveX = moveInput.x * moveSpeed;
+
+        // Apply vertical movement (swim up or down) and gravity
+        float moveY = moveInput.y - gravity;  // Combine swim movement with gravity
+
+        // Set the velocity for both horizontal and vertical movement
+        rb.velocity = new Vector2(moveX, moveY);
     }
 
     private void HandleOxygenDepletion()
