@@ -64,10 +64,25 @@ public class PlayerController : MonoBehaviour
         {
             healthBar.DepleteHealth(Time.deltaTime * 5f); // Slowly lose health if out of oxygen
         }
+
+        if (oxygenBar == null)
+        {
+            Debug.LogError("oxygenBar is not assigned in the PlayerController!");
+        }
+
     }
 
     private bool IsPlayerOnSurface()
     {
         return transform.position.y >= 0;  // Surface assumed to be y = 0
     }
+
+    public void TakeDamage(float amount)
+    {
+        if (healthBar != null)
+        {
+            healthBar.DepleteHealth(amount);
+        }
+    }
+
 }

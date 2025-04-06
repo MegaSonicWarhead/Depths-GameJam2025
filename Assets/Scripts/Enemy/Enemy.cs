@@ -30,18 +30,26 @@ public class Enemy : MonoBehaviour
             Debug.LogError("Rigidbody2D not found on the enemy. Please add a Rigidbody2D component.");
             return;
         }
-        rb.isKinematic = true;  // Set to Kinematic if we're manually moving the enemy
-        Debug.Log("Enemy started patrolling");
+        rb.isKinematic = true;
 
         player = GameObject.FindGameObjectWithTag(targetTag)?.transform;
 
-        // Attempt to find the player's HealthBar component if not assigned
         if (playerHealth == null)
         {
             GameObject playerObject = GameObject.FindGameObjectWithTag(targetTag);
             if (playerObject != null)
             {
                 playerHealth = playerObject.GetComponent<HealthBar>();
+
+                // 
+                if (playerHealth != null)
+                {
+                    Debug.Log("Enemy found HealthBar on: " + playerHealth.gameObject.name);
+                }
+                else
+                {
+                    Debug.LogWarning("HealthBar component NOT found on the Player GameObject.");
+                }
             }
         }
 
@@ -50,6 +58,7 @@ public class Enemy : MonoBehaviour
             Debug.LogError("Player HealthBar not found! Please assign it properly.");
         }
     }
+
 
     void Update()
     {
