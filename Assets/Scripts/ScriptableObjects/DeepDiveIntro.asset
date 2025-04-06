@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cdb529bb6195c349949765650e76eaf, type: 3}
+  m_Name: DeepDiveIntro
+  m_EditorClassIdentifier: 
+  dialogueName: Deep Dive Intro
+  lines:
+  - speaker: Dr Emily Pope
+    portrait: scientist.png
+    text: "\"Ah, you\u2019re finally here. Welcome!\""
+  - speaker: Dr Emily Pope
+    portrait: scientist.png
+    text: "\"I\u2019m Dr. Emily Pope. I\u2019ve been researching the disease for
+      months, but we\u2019re running out of time.\""
+  - speaker: Dr Emily Pope
+    portrait: scientist.png
+    text: "\"The infection is spreading rapidly. It's a rare, marine bacteria that\u2019s
+      resistant to almost every antibiotic. It affects the nervous system and causes
+      paralysis.\""
+  - speaker: Dr Emily Pope
+    portrait: scientist.png
+    text: " \"I\u2019ve identified the cure, but it\u2019s a rare compound that can
+      only be found deep at the bottom of the ocean, in a place no one has dared
+      to venture before.\""
+  - speaker: Dr Emily Pope
+    portrait: scientist.png
+    text: "\"The pressure is extreme, and the ocean floor is teeming with dangers.
+      But the suit I\u2019ve modified for you should help\u2014if you don\u2019t
+      take too long.\""
+  - speaker: Dr Emily Pope
+    portrait: scientist.png
+    text: " \"Time is critical. If you don\u2019t bring back the cure soon, it\u2019ll
+      be too late. Stay sharp and be careful. The ocean is far more dangerous than
+      you think.\"\n\n"
+  - speaker: Dr Emily Pope
+    portrait: scientist.png
+    text: "\"Good luck, diver. We\u2019re all counting on you.\""

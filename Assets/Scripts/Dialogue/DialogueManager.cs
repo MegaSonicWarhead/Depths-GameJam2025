@@ -1,45 +1,49 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
 
 public class DialogueManager : MonoBehaviour
 {
-    public DialogueSequence sequence;
+    public DialogueData dialogueData;
+    public TextMeshProUGUI speakerText;
     public TextMeshProUGUI dialogueText;
-    private int index = 0;
-    private bool inDialogue = false;
+    public Image portraitImage;
+    public GameObject dialoguePanel;
+    public GameObject startGameButton;
+
+    private int currentLine = 0;
 
     void Start()
     {
-        dialogueText.text = "";
+        dialoguePanel.SetActive(true);
+        startGameButton.SetActive(false);
+        ShowLine();
     }
 
-    void Update()
+    void ShowLine()
     {
-        if (inDialogue && Input.GetKeyDown(KeyCode.Space))
+        if (currentLine < dialogueData.lines.Length)
         {
-            AdvanceDialogue();
+            DialogueLine line = dialogueData.lines[currentLine];
+            speakerText.text = line.speaker;
+            dialogueText.text = line.text;
+
+            if (portraitImage != null)
+                portraitImage.sprite = Resources.Load<Sprite>(line.portrait);
+        }
+        else
+        {
+            dialoguePanel.SetActive(false);
+            startGameButton.SetActive(true);
         }
     }
 
-    public void StartDialogue(DialogueSequence newSequence)
+    public void AdvanceDialogue()
     {
-        sequence = newSequence;
-        index = 0;
-        inDialogue = true;
-        dialogueText.text = sequence.lines[index].text;
-    }
-
-    private void AdvanceDialogue()
-    {
-        index++;
-        if (index >= sequence.lines.Length)
-        {
-            dialogueText.text = "";
-            inDialogue = false;
-            return;
-        }
-        dialogueText.text = sequence.lines[index].text;
+        currentLine++;
+        ShowLine();
     }
 }

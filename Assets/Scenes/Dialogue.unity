@@ -555,8 +555,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bafddeeea2f7d7b4783ab79d73df6071, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sequence: {fileID: 11400000, guid: 6339ad0a76d96fe49b5e84972a6b7065, type: 2}
+  dialogueData: {fileID: 11400000, guid: b574ddfd9fcb8d345982694ea3b8b109, type: 2}
+  speakerText: {fileID: 1986032254}
   dialogueText: {fileID: 1422734401}
+  portraitImage: {fileID: 30046403}
+  dialoguePanel: {fileID: 1163843425}
+  startGameButton: {fileID: 950519316}
 --- !u!4 &847446512
 Transform:
   m_ObjectHideFlags: 0
@@ -899,7 +903,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -144, y: -73}
+  m_AnchoredPosition: {x: -144, y: 1}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1422734401
