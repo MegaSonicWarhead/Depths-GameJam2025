@@ -20,7 +20,7 @@ public class DialogueManager : MonoBehaviour
     void Start()
     {
         dialoguePanel.SetActive(true);
-        startGameButton.gameObject.SetActive(false);  // Ensure Start Game button is hidden initially
+        startGameButton.gameObject.SetActive(false);  
         ShowLine();
     }
 
@@ -35,8 +35,8 @@ public class DialogueManager : MonoBehaviour
         }
         else
         {
-            dialoguePanel.SetActive(false); // Hide dialogue panel after last line
-            startGameButton.gameObject.SetActive(true);  // Show the Start Game button
+            dialoguePanel.SetActive(false);
+            startGameButton.gameObject.SetActive(true);
         }
     }
 
@@ -48,7 +48,7 @@ public class DialogueManager : MonoBehaviour
 
     public void StartGame()
     {
-        SceneManager.LoadScene("Game"); // Replace "Game" with the actual name of your game scene
+        SceneManager.LoadScene("Game"); 
     }
 }
 

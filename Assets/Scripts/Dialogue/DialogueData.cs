@@ -6,7 +6,7 @@ using UnityEngine;
 public class DialogueLine
 {
     public string speaker;
-    public string portrait; // Path to the sprite in Resources
+    public string portrait; 
     [TextArea(3, 10)]
     public string text;
 }
