@@ -43,14 +43,31 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (moveInput.y == 0f)
+        /*if (moveInput.y == 0f)
         {
             rb.velocity = new Vector2(moveInput.x * moveSpeed, rb.velocity.y - gravity);  // Apply gravity to Y-axis
         }
         else
         {
             rb.velocity = new Vector2(moveInput.x * moveSpeed, moveInput.y);
+        }*/
+        Vector2 currentPosition = rb.position;
+        Vector2 targetVelocity;
+
+        if (moveInput.y == 0f)
+        {
+            // Gravity pull
+            targetVelocity = new Vector2(moveInput.x * moveSpeed, rb.velocity.y - gravity);
         }
+        else
+        {
+            // Swimming
+            targetVelocity = new Vector2(moveInput.x * moveSpeed, moveInput.y);
+        }
+
+        // Apply movement with collision-safe method
+        Vector2 newPosition = currentPosition + targetVelocity * Time.fixedDeltaTime;
+        rb.MovePosition(newPosition);
     }
 
     private void HandleOxygenDepletion()
