@@ -16,28 +16,27 @@ public class DialogueManager : MonoBehaviour
 
     private int currentLine = 0;
 
+
     void Start()
     {
         dialoguePanel.SetActive(true);
-        startGameButton.SetActive(false);
+        startGameButton.gameObject.SetActive(false);  // Ensure Start Game button is hidden initially
         ShowLine();
     }
 
-    void ShowLine()
+    public void ShowLine()
     {
         if (currentLine < dialogueData.lines.Length)
         {
             DialogueLine line = dialogueData.lines[currentLine];
             speakerText.text = line.speaker;
             dialogueText.text = line.text;
-
-            if (portraitImage != null)
-                portraitImage.sprite = Resources.Load<Sprite>(line.portrait);
+            portraitImage.sprite = Resources.Load<Sprite>(line.portrait);
         }
         else
         {
-            dialoguePanel.SetActive(false);
-            startGameButton.SetActive(true);
+            dialoguePanel.SetActive(false); // Hide dialogue panel after last line
+            startGameButton.gameObject.SetActive(true);  // Show the Start Game button
         }
     }
 
@@ -46,4 +45,10 @@ public class DialogueManager : MonoBehaviour
         currentLine++;
         ShowLine();
     }
+
+    public void StartGame()
+    {
+        SceneManager.LoadScene("Game"); // Replace "Game" with the actual name of your game scene
+    }
 }
+
