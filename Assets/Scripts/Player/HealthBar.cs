@@ -4,16 +4,12 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class HealthBar : MonoBehaviour
 {
 
     public Slider healthSlider;        // Reference to the health slider UI
-    public GameObject gameOverPanel;   // Game Over panel UI reference
-    public TextMeshProUGUI gameOverText; // Game Over text reference
-    public Button retryButton;         // Retry button reference
-    public Button exitButton;          // Exit button reference
-
     public float maxHealth = 100f;     // Maximum health of the player
     private float currentHealth;       // Current health of the player
     public bool isDead = false;        // Flag to check if the player is dead
@@ -22,14 +18,6 @@ public class HealthBar : MonoBehaviour
     {
         currentHealth = maxHealth; // Set the current health to max at the start
         UpdateHealthSlider();       // Update health slider UI at the start
-
-        if (gameOverPanel != null)
-        {
-            gameOverPanel.SetActive(false); // Hide Game Over panel initially
-        }
-
-        if (retryButton != null) retryButton.onClick.AddListener(Retry);
-        if (exitButton != null) exitButton.onClick.AddListener(Exit);
     }
 
     // Method to update the health slider
@@ -37,8 +25,21 @@ public class HealthBar : MonoBehaviour
     {
         if (healthSlider != null)
         {
+            // Normalize health value to be between 0 and 1 for the slider
             float normalizedHealth = Mathf.Clamp(currentHealth / maxHealth, 0f, 1f);
             healthSlider.value = normalizedHealth;
+            // Force the canvas to update the slider immediately
+            Canvas.ForceUpdateCanvases();  // Force UI update after slider value change
+
+            // Debugging the normalized value
+            Debug.Log("Health slider normalized value: " + normalizedHealth);
+
+            // Check if health is zero and trigger game over
+            if (currentHealth <= 0f && !isDead)
+            {
+                isDead = true;
+                TriggerGameOver();  // Trigger game over sequence
+            }
         }
         else
         {
@@ -47,53 +48,34 @@ public class HealthBar : MonoBehaviour
     }
 
     // Method to decrease health
-    public void DepleteHealth(float amount)
+    public void DepleteHealth(float damage)
     {
-        if (isDead) return;
+        // Decrease health by damage amount
+        currentHealth -= damage;
+        currentHealth = Mathf.Clamp(currentHealth, 0f, maxHealth);  // Ensure health doesn't go below zero
 
-        if (currentHealth > 0)
-        {
-            currentHealth -= amount;
-            currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
-            UpdateHealthSlider(); // Update slider after health changes
-
-            if (currentHealth <= 0)
-            {
-                isDead = true;
-                TriggerGameOver();
-            }
-        }
+        // Add a small delay between updates (for testing purposes or smoother UI)
+        StartCoroutine(UpdateHealthWithDelay());
     }
 
-    // Trigger the Game Over UI
+    private IEnumerator UpdateHealthWithDelay()
+    {
+        // Wait for 0.1 seconds before updating the slider
+        yield return new WaitForSeconds(0.1f);
+        UpdateHealthSlider();  // Update the health slider after the delay
+    }
+
+    // Trigger the Game Over UI or state when health reaches zero
     private void TriggerGameOver()
     {
-        if (gameOverPanel != null)
-        {
-            gameOverPanel.SetActive(true);  // Show the Game Over panel
-            Debug.Log("Game Over Panel activated!");
-        }
-
-        if (gameOverText != null)
-        {
-            gameOverText.text = "Game Over";
-        }
+        Debug.Log("Player is dead. Triggering game over.");
+        // For now, we'll just load the Game Over scene after a short delay
+        Invoke("LoadGameOverScene", 2f); // Delay by 2 seconds before transitioning to the Game Over scene
     }
 
-    // Retry button callback
-    public void Retry()
+    // Method to load the Game Over scene
+    private void LoadGameOverScene()
     {
-        isDead = false;
-        currentHealth = maxHealth;  // Reset health to max
-        UpdateHealthSlider();       // Update the health slider
-        gameOverPanel.SetActive(false);  // Hide the Game Over panel
-        Time.timeScale = 1f;        // Resume the game
-    }
-
-    // Exit the game
-    public void Exit()
-    {
-        Debug.Log("Exiting Game...");
-        Application.Quit(); // Quit the game (only works in builds)
+        SceneManager.LoadScene("GameOver");  // Replace "GameOver" with the actual scene name for Game Over
     }
 }
