@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 212d8595e86d4414faf578524cacbf43, type: 3}
   m_Name: Line2
   m_EditorClassIdentifier: 
-  text: 
+  text: "\"I\u2019m Dr. Emily Raines. I\u2019ve been researching the disease for
+    months, but we\u2019re running out of time.\""

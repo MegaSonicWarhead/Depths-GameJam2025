@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 212d8595e86d4414faf578524cacbf43, type: 3}
   m_Name: Line3
   m_EditorClassIdentifier: 
-  text: 
+  text: "\"The infection is spreading rapidly. It's a rare, marine bacteria that\u2019s
+    resistant to almost every antibiotic. It affects the nervous system and causes
+    paralysis.\""

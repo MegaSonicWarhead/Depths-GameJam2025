@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 212d8595e86d4414faf578524cacbf43, type: 3}
   m_Name: Line1
   m_EditorClassIdentifier: 
-  text: 
+  text: "\"Ah, you\u2019re finally here. Welcome!\""

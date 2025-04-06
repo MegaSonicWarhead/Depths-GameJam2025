@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 212d8595e86d4414faf578524cacbf43, type: 3}
   m_Name: Line4
   m_EditorClassIdentifier: 
-  text: 
+  text: "\"I\u2019ve identified the cure, but it\u2019s a rare compound that can
+    only be found deep at the bottom of the ocean, in a place no one has dared to
+    venture before.\""

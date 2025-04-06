@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 212d8595e86d4414faf578524cacbf43, type: 3}
   m_Name: Line5
   m_EditorClassIdentifier: 
-  text: 
+  text: "\"The pressure is extreme, and the ocean floor is teeming with dangers.
+    But the suit I\u2019ve modified for you should help\u2014if you don\u2019t take
+    too long.\""
