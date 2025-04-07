@@ -76,17 +76,7 @@ public class PlayerController : MonoBehaviour
             oxygenBar.DepleteOxygen(Time.deltaTime);  // Deplete oxygen each frame
         }
 
-        if (oxygenBar != null && oxygenBar.GetCurrentOxygen() <= 0)
-        {
-            healthBar.DepleteHealth(Time.deltaTime * 5f); // Slowly lose health if out of oxygen
-
-            if (audioManager != null)
-            {
-                audioManager.PlayDrowning();
-                Debug.Log("Drowning sound played");
-            }
-
-        }
+       
         if (oxygenBar != null && oxygenBar.GetCurrentOxygen() <= 0)
         {
             healthBar.DepleteHealth(Time.deltaTime * 5f); // Slowly lose health if out of oxygen
@@ -96,7 +86,16 @@ public class PlayerController : MonoBehaviour
                 Debug.Log("Drowning sound played");
             }
         }
-        
+
+        if(oxygenBar != null && oxygenBar.GetCurrentOxygen() > 0)
+        {
+            if (audioManager != null)
+            {
+                audioManager.PlayDamage();
+                Debug.Log("Damage sound played");
+            }
+        }
+
     }
 
     private bool IsPlayerOnSurface()

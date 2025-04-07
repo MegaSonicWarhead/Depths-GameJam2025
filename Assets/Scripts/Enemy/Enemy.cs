@@ -8,12 +8,14 @@ public class Enemy : MonoBehaviour
     public float damageInterval = 1f;          // How often the enemy damages the player
     private float timeSinceLastDamage = 0f;    // Timer to track damage intervals
 
+
     public Transform patrolPointA;             // First patrol point
     public Transform patrolPointB;             // Second patrol point
     public float patrolSpeed = 3f;             // Speed at which the enemy moves between patrol points
     private bool movingToB = true;             // Direction of movement
     private HealthBar playerHealth;            // Reference to the player's health bar
     private Transform player;                  // Reference to the player
+
 
     public float detectionRange = 250f;        // The distance at which the enemy will move towards the player
 
