@@ -87,15 +87,6 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if(oxygenBar != null && oxygenBar.GetCurrentOxygen() > 0)
-        {
-            if (audioManager != null)
-            {
-                audioManager.PlayDamage();
-                Debug.Log("Damage sound played");
-            }
-        }
-
     }
 
     private bool IsPlayerOnSurface()

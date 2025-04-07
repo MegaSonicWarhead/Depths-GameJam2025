@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -108,5 +108,17 @@ public class Enemy : MonoBehaviour
             playerHealth.DepleteHealth(damageAmount);  // Apply damage to the player
             timeSinceLastDamage = 0f;  // Reset the damage timer
         }
+
+        //  Play damage sound
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayDamage();
+            Debug.Log("Damage sound played");
+        }
+        else
+        {
+            Debug.LogWarning("AudioManager instance not found!");
+        }
+
     }
 }
