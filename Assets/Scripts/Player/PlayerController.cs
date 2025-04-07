@@ -8,13 +8,14 @@ public class PlayerController : MonoBehaviour
     public float swimUpSpeed = 70f;         // Speed at which the player swims upward
     public float swimDownSpeed = 70f;       // Speed at which the player swims downward
     public float gravity = 0.1f;            // Custom gravity to pull the player down
-
+    public AudioManager audioManager; // Reference to the AudioManager for sound effects
     private Rigidbody2D rb;
     private Vector2 moveInput;
 
     // References to health and oxygen systems
     public HealthBar healthBar;
     public OxygenBar oxygenBar;
+    private bool isDiving = false;
 
     void Start()
     {
@@ -39,6 +40,21 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(KeyCode.S)) moveVertical = -swimDownSpeed;
 
         moveInput = new Vector2(moveHorizontal, moveVertical);
+
+        //Diving sound trigger
+        if ((Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S)) && !isDiving)
+        {
+            isDiving = true;
+            if (audioManager != null)
+            {
+                audioManager.PlayDiving();
+                Debug.Log("Diving sound played");
+            }
+        }
+        else if (!Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S))
+        {
+            isDiving = false;
+        }
     }
 
     void FixedUpdate()
@@ -63,7 +79,24 @@ public class PlayerController : MonoBehaviour
         if (oxygenBar != null && oxygenBar.GetCurrentOxygen() <= 0)
         {
             healthBar.DepleteHealth(Time.deltaTime * 5f); // Slowly lose health if out of oxygen
+
+            if (audioManager != null)
+            {
+                audioManager.PlayDrowning();
+                Debug.Log("Drowning sound played");
+            }
+
         }
+        if (oxygenBar != null && oxygenBar.GetCurrentOxygen() <= 0)
+        {
+            healthBar.DepleteHealth(Time.deltaTime * 5f); // Slowly lose health if out of oxygen
+            if (audioManager != null)
+            {
+                audioManager.PlayDrowning();
+                Debug.Log("Drowning sound played");
+            }
+        }
+        
     }
 
     private bool IsPlayerOnSurface()
