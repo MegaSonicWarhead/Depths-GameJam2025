@@ -7,6 +7,9 @@ public class ShopSystem : MonoBehaviour
 {
     public GameObject shopUI;
     private bool playerInRange = false;
+
+    public HealthBar playerHealthBar;
+    public float upgradeAmount = 20f;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,7 +26,7 @@ public class ShopSystem : MonoBehaviour
     }
     private void ToggleShopUI()
     {
-        bool isActive = shopUI.activeSelf;
+        /*bool isActive = shopUI.activeSelf;
         shopUI.SetActive(!isActive);
 
         if (!isActive)
@@ -33,7 +36,10 @@ public class ShopSystem : MonoBehaviour
         else
         {
             Time.timeScale = 1f;
-        }
+        }*/
+        bool isActive = shopUI.activeSelf;
+        shopUI.SetActive(!isActive);
+        Time.timeScale = isActive ? 1f : 0f;
 
     }
 
@@ -52,6 +58,14 @@ public class ShopSystem : MonoBehaviour
             playerInRange = false;
             shopUI.SetActive(false);
             Time.timeScale = 1f;
+        }
+    }
+
+    public void BuyHealth()
+    {
+        if (playerHealthBar != null)
+        {
+            playerHealthBar.UpgradeMaxHealth(upgradeAmount);
         }
     }
 }

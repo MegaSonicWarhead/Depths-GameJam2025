@@ -78,4 +78,29 @@ public class HealthBar : MonoBehaviour
     {
         SceneManager.LoadScene("GameOver");  // Replace "GameOver" with the actual scene name for Game Over
     }
+
+    public void UpgradeMaxHealth(float extraHealth, bool healToFull = true)
+    {
+        if (maxHealth >= 150F)
+        {
+            Debug.Log("you already have max health. no upgrade for you :)");
+            return;
+        }
+
+        maxHealth += extraHealth;
+
+        if (maxHealth > 150f)
+        {
+            maxHealth = 150f;
+        }
+        if (healToFull)
+        {
+            currentHealth = maxHealth;
+        }
+
+        UpdateHealthSlider();
+        Debug.Log("Max Health has been upgraded to: " + maxHealth);
+        
+    }
+
 }
