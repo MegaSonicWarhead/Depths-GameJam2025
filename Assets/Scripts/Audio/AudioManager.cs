@@ -13,6 +13,9 @@ public class AudioManager : MonoBehaviour
     public AudioClip coinSound;
     public AudioClip bubbleSound;
     public AudioClip backgroundMusic;
+    public AudioClip damageSound;
+    public AudioClip divingSound;
+    public AudioClip drowningSound;
 
     void Awake()
     {
@@ -56,6 +59,24 @@ public class AudioManager : MonoBehaviour
     {
         Debug.Log("Playing coin sound");
         PlaySFX(coinSound);
+    }
+
+    public void PlayDamage()
+    {
+        Debug.Log("Playing damage sound");
+        PlaySFX(damageSound);
+    }
+
+    public void PlayDiving()
+    {
+        Debug.Log("Playing diving sound");
+        PlaySFX(divingSound);
+    }
+
+    public void PlayDrowning()
+    {
+        Debug.Log("Playing drowning sound");
+        PlaySFX(drowningSound);
     }
 
 
