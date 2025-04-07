@@ -10,7 +10,7 @@ public class DialogueManager : MonoBehaviour
     public DialogueData dialogueData;
     public TextMeshProUGUI speakerText;
     public TextMeshProUGUI dialogueText;
-    public Image portraitImage;
+    //public Image portraitImage;
     public GameObject dialoguePanel;
     public GameObject startGameButton;
 
@@ -31,7 +31,7 @@ public class DialogueManager : MonoBehaviour
             DialogueLine line = dialogueData.lines[currentLine];
             speakerText.text = line.speaker;
             dialogueText.text = line.text;
-            portraitImage.sprite = Resources.Load<Sprite>(line.portrait);
+           // portraitImage.sprite = Resources.Load<Sprite>(line.portrait);
         }
         else
         {
