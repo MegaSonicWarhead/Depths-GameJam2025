@@ -10,7 +10,8 @@ public class OxygenBar : MonoBehaviour
     private float currentOxygen;  // Current oxygen level
 
     public float oxygenDepletionRate = 5f; // Rate of oxygen depletion per second when underwater
-
+    public float oxygenUpgradeNumber = 20f;
+    private bool canUpgrade = true;
     void Start()
     {
         currentOxygen = maxOxygen; // Set initial oxygen to max
@@ -50,5 +51,23 @@ public class OxygenBar : MonoBehaviour
     public float GetCurrentOxygen()
     {
         return currentOxygen;
+    }
+
+    public void UpgradeOxy(float upgradeAmount)
+    {
+        if (canUpgrade)
+        {
+            maxOxygen += oxygenUpgradeNumber;
+            currentOxygen = maxOxygen;
+            UpdateOxygenSlider();
+
+            canUpgrade = false;
+            Debug.Log("Oxygen has been upgraded, good luck in the depths, oxy is now: " + maxOxygen);
+
+        }
+        else
+        {
+            Debug.Log("cant Upgrade Oxygen anymore");
+        }
     }
 }

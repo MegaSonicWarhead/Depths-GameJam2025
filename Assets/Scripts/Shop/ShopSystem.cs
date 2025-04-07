@@ -9,6 +9,7 @@ public class ShopSystem : MonoBehaviour
     private bool playerInRange = false;
 
     public HealthBar playerHealthBar;
+    public OxygenBar playerOxygenBar;
     public float upgradeAmount = 20f;
     // Start is called before the first frame update
     void Start()
@@ -66,6 +67,14 @@ public class ShopSystem : MonoBehaviour
         if (playerHealthBar != null)
         {
             playerHealthBar.UpgradeMaxHealth(upgradeAmount);
+        }
+    }
+    
+    public void BuyOxygen()
+    {
+        if (playerOxygenBar != null)
+        {
+            playerOxygenBar.UpgradeOxy(upgradeAmount);
         }
     }
 }
