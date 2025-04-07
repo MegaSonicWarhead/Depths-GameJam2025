@@ -5442,6 +5442,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b54fac850bc2664b8c53f3f4710b664, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  coinText: {fileID: 0}
 --- !u!60 &1767217883
 PolygonCollider2D:
   m_ObjectHideFlags: 0
