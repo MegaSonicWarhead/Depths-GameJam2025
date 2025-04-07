@@ -35,18 +35,29 @@ public class AudioManager : MonoBehaviour
 
     public void PlaySFX(AudioClip clip)
     {
-        sfxSource.PlayOneShot(clip);
+        if (clip != null)
+        {
+            Debug.Log("Playing SFX: " + clip.name);
+            sfxSource.PlayOneShot(clip);
+        }
+        else
+        {
+            Debug.LogWarning("No audio clip assigned to PlaySFX");
+        }
     }
 
     public void PlayBubble()
     {
+        Debug.Log("Playing bubble sound");
         PlaySFX(bubbleSound);
     }
 
     public void PlayCoin()
     {
+        Debug.Log("Playing coin sound");
         PlaySFX(coinSound);
     }
+
 
     public void PlayMusic(AudioClip music)
     {

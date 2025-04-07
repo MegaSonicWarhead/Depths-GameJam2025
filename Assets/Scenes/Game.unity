@@ -669,6 +669,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   oxygenBar: {fileID: 1454050958}
+  audioManager: {fileID: 77374552}
 --- !u!61 &308360835
 BoxCollider2D:
   m_ObjectHideFlags: 0
