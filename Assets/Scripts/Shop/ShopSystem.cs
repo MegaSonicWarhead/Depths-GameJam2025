@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class ShopSystem : MonoBehaviour
 {
@@ -11,10 +12,13 @@ public class ShopSystem : MonoBehaviour
     public HealthBar playerHealthBar;
     public OxygenBar playerOxygenBar;
     public float upgradeAmount = 20f;
+
+    public PlayerMoney playerMoney;
+    public TextMeshProUGUI coinText;
     // Start is called before the first frame update
     void Start()
     {
-
+        UpdateCurrency();
     }
 
     // Update is called once per frame
@@ -64,17 +68,46 @@ public class ShopSystem : MonoBehaviour
 
     public void BuyHealth()
     {
-        if (playerHealthBar != null)
+        /*if (playerHealthBar != null)
         {
             playerHealthBar.UpgradeMaxHealth(upgradeAmount);
+        }*/
+        if (playerMoney.GetMoney() >= 1)
+        {
+            float before = playerHealthBar.maxHealth;
+            playerHealthBar.UpgradeMaxHealth(upgradeAmount);
+            float after = playerHealthBar.maxHealth;
+
+            if (after > before)
+            {
+                playerMoney.AddMoney(-1); 
+            }
         }
     }
     
     public void BuyOxygen()
     {
-        if (playerOxygenBar != null)
+        /*if (playerOxygenBar != null)
         {
             playerOxygenBar.UpgradeOxy(upgradeAmount);
+        }*/
+        if (playerMoney.GetMoney() >= 1)
+        {
+            float oldMax = playerOxygenBar.maxOxygen;
+            playerOxygenBar.UpgradeOxy(upgradeAmount);
+
+            if (playerOxygenBar.maxOxygen > oldMax)
+            {
+                playerMoney.AddMoney(-1); 
+            }
+        }
+    }
+
+    private void UpdateCurrency()
+    {
+        if (coinText != null && playerMoney != null)
+        {
+            coinText.text = "$: " + playerMoney.GetMoney();
         }
     }
 }
