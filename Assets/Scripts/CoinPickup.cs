@@ -7,6 +7,7 @@ public class CoinPickup : MonoBehaviour
 {
     public TextMeshProUGUI moneyText;  // Reference to the UI Text to display money
     private PlayerMoney playerMoney;   // Reference to the PlayerMoney script
+    public AudioManager audioManager; // Reference to the AudioManager script
 
     void Start()
     {
@@ -23,6 +24,11 @@ public class CoinPickup : MonoBehaviour
         if (moneyText == null)
         {
             Debug.LogError("MoneyText reference is not assigned in the Inspector.");
+        }
+
+        if (audioManager == null)
+        {
+            Debug.LogError("AudioManager reference is not assigned in the Inspector.");
         }
     }
 
@@ -42,6 +48,9 @@ public class CoinPickup : MonoBehaviour
 
             // Debug log to verify the money is being updated
             Debug.Log("Coin picked up! Current Money: " + playerMoney.GetMoney());
+
+            // Play the coin pickup sound effect using the AudioManager
+            audioManager.PlayCoin();
 
             // Destroy the coin object after picking it up
             Destroy(gameObject);
